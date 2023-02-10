@@ -31,7 +31,7 @@ const Home = () => {
                         name, email, application, imageUrl
                     }
                     console.log(form);
-                    fetch('http://localhost:5000/application', {
+                    fetch('https://application-server-nine.vercel.app/application', {
                         method: 'POST',
                         headers: {
                             "content-type": "application/json"

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const imageHostKey = process.env.REACT_APP_imageBB_key
 
@@ -24,11 +24,11 @@ const Home = () => {
             .then(imageData => {
                 if (imageData.success) {
                     const name = data.name;
-                    const email = data.email;
+                    const mobile = data.mobile;
                     const application = data.application;
                     const imageUrl = imageData.data.url
                     const form = {
-                        name, email, application, imageUrl
+                        name, mobile , application, imageUrl
                     }
                     console.log(form);
                     fetch('https://application-server-nine.vercel.app/application', {
@@ -74,10 +74,10 @@ const Home = () => {
                         </div>
                         <div className="my-2 w-full">
                             <p>
-                                <span className="">Email</span>
+                                <span className="">Mobile Number</span>
                             </p>
-                            <input {...register("email", { required: "Email Address is required" })} type="email" placeholder="Enter Email" className="  p-3 border border-gray-500 rounded-lg w-full " />
-                            {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
+                            <input {...register("mobile", { required: "Mobile Number is required" })} type="email" placeholder="Enter Email" className="  p-3 border border-gray-500 rounded-lg w-full " />
+                            {errors.mobile && <p className="text-red-600">{errors.mobile?.message}</p>}
                         </div>
                         <div className="my-2 w-full">
                             <p className='my-2'>Application Details:</p>

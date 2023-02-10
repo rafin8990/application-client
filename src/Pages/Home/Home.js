@@ -4,6 +4,8 @@ import Navbar from '../../Navbar/Navbar';
 import formpic from '../../assets/form.png'
 import { useNavigate } from 'react-router-dom';
 
+
+
 const Home = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const navigate = useNavigate()
@@ -11,7 +13,6 @@ const Home = () => {
     const imageHostKey = process.env.REACT_APP_imageBB_key
 
     const handleApplication = (data) => {
-        console.log(data.image[0])
         const formData = new FormData();
         const image = data.image[0]
         formData.append('image', image);
@@ -28,7 +29,7 @@ const Home = () => {
                     const application = data.application;
                     const imageUrl = imageData.data.url
                     const form = {
-                        name, mobile , application, imageUrl
+                        name, mobile, application, imageUrl
                     }
                     console.log(form);
                     fetch('https://application-server-nine.vercel.app/application', {
@@ -76,7 +77,7 @@ const Home = () => {
                             <p>
                                 <span className="">Mobile Number</span>
                             </p>
-                            <input {...register("mobile", { required: "Mobile Number is required" })} type="email" placeholder="Enter Mobile No" className="  p-3 border border-gray-500 rounded-lg w-full " />
+                            <input {...register("mobile", { required: "Mobile Number is required" })} type='number' placeholder="Enter Mobile No" className="  p-3 border border-gray-500 rounded-lg w-full " />
                             {errors.mobile && <p className="text-red-600">{errors.mobile?.message}</p>}
                         </div>
                         <div className="my-2 w-full">
@@ -86,7 +87,7 @@ const Home = () => {
                         </div>
                         <div className="my-2 w-full">
                             <p className='my-2'>Enter Your Picture:</p>
-                            <input {...register("image", { required: "Image is required" })} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
+                            <input {...register("image")} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
                             {errors.image && <p className="text-red-600">{errors.image?.message}</p>}
                         </div>
                         <div>

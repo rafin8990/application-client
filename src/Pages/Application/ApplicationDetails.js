@@ -2,11 +2,16 @@ import React from 'react';
 
 const ApplicationDetails = ({app}) => {
 
-    const {name, imageUrl,mobile, application}=app;
+    const {name, imageUrl,mobile, application, picture}=app;
     return (
         <div className='mt-20 border p-10'>
             <div className='flex justify-center'>
-                <img className='w-96' src={imageUrl} alt="" />
+                {
+                    imageUrl && <img className='w-96' src={imageUrl} alt="" />
+                }
+                {
+                    picture && <img className='w-96' src={picture} alt="" />
+                }
             </div>
             <div>
                 <h1 className='text-xl text-center mt-10'>Applicants Name: {name}</h1>

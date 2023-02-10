@@ -87,7 +87,7 @@ const Home = () => {
                         </div>
                         <div className="my-2 w-full">
                             <p className='my-2'>Enter Your Picture:</p>
-                            <input {...register("image")} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
+                            <input {...register("image" , { required: "Image Upload is required"})} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
                             {errors.image && <p className="text-red-600">{errors.image?.message}</p>}
                         </div>
                         <div>

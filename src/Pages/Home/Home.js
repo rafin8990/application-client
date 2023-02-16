@@ -11,12 +11,21 @@ const Home = () => {
     const navigate = useNavigate()
 
     const imageHostKey = process.env.REACT_APP_imageBB_key
+    // const pictureHostKey=process.env.REACT_APP_picture_key
 
     const handleApplication = (data) => {
         const formData = new FormData();
-        const image = data.image[0]
+        const formData2 = new FormData();
+       
+        const image = data.image[0];
+        const pic=data.picture[0];
         formData.append('image', image);
+        formData2.append('image', pic)
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        // const picUrl =`https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        // const picUrl =`https://api.imgbb.com/1/upload?key=${pictureHostKey}`
+        // console.log(picUrl)
+        
         fetch(url, {
             method: 'POST',
             body: formData
@@ -24,30 +33,40 @@ const Home = () => {
             .then(res => res.json())
             .then(imageData => {
                 if (imageData.success) {
-                    const name = data.name;
-                    const mobile = data.mobile;
-                    const application = data.application;
-                    const imageUrl = imageData.data.url
-                    const form = {
-                        name, mobile, application, imageUrl
-                    }
-                    console.log(form);
-                    fetch('https://application-server-nine.vercel.app/application', {
-                        method: 'POST',
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(form)
+                    fetch(url, {
+                        method: "POST",
+                        body: formData2
                     })
                         .then(res => res.json())
-                        .then(data => {
-                            if (data.acknowledged) {
-                                alert('Application added successfully')
-                                reset()
-                                navigate('/welcome')
-                            }
+                        .then(imgData => {
+                            if (imgData.success) {
+                                const name = data.name;
+                                const mobile = data.mobile;
+                                const application = data.application;
+                                const imageUrl = imageData.data.url;
+                                const picture=imgData.data.url;
+                                const form = {
+                                    name, mobile, application, imageUrl, picture
+                                }
+                                fetch('https://application-server-nine.vercel.app/application', {
+                                    method: 'POST',
+                                    headers: {
+                                        "content-type": "application/json"
+                                    },
+                                    body: JSON.stringify(form)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.acknowledged) {
+                                            alert('Application added successfully')
+                                            reset()
+                                            navigate('/welcome')
+                                        }
 
+                                    })
+                            }
                         })
+
                 }
             })
 
@@ -87,8 +106,13 @@ const Home = () => {
                         </div>
                         <div className="my-2 w-full">
                             <p className='my-2'>Enter Your Picture:</p>
-                            <input {...register("image" , { required: "Image Upload is required"})} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
+                            <input {...register("image", { required: "Image Upload is required" })} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
                             {errors.image && <p className="text-red-600">{errors.image?.message}</p>}
+                        </div>
+                        <div className="my-2 w-full">
+                            <p className='my-2'>Enter Your Picture:</p>
+                            <input {...register("picture", { required: "Image Upload is required" })} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
+                            {errors.picture && <p className="text-red-600">{errors.picture?.message}</p>}
                         </div>
                         <div>
                             <button className='border border-violet-500 text-white bg-violet-500 px-4 py-2 rounded-lg w-full my-5' type="submit"> Submit Application</button>

@@ -25,6 +25,7 @@ const Dashboard = () => {
                             <th>Mobile</th>
                             <th>Description</th>
                             <th>Image URL</th>
+                            <th>Image URL</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,7 @@ const Dashboard = () => {
                             <td>{Application.mobile}</td>
                             <td>{Application.application}</td>
                             <td>{Application.imageUrl}</td>
+                            <td>{Application.picture}</td>
                         </tr>)
                         }
 

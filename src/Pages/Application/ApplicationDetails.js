@@ -1,17 +1,23 @@
 import React from 'react';
 
-const ApplicationDetails = ({app}) => {
+const ApplicationDetails = ({ app }) => {
 
-    const {name, imageUrl,mobile, application, picture}=app;
+    const { name, imageUrl, mobile, application, picture } = app;
     return (
         <div className='mt-20 border p-10'>
             <div className='flex justify-center'>
-                {
-                    imageUrl && <img className='w-96' src={imageUrl} alt="" />
-                }
-                {
-                    picture && <img className='w-96' src={picture} alt="" />
-                }
+                <div>
+                    <div>
+
+                        <img className='w-96' src={imageUrl} alt="" />
+
+                    </div>
+                    <div className='mt-5'>
+
+                        <img className='w-96' src={picture} alt="" />
+
+                    </div>
+                </div>
             </div>
             <div>
                 <h1 className='text-xl text-center mt-10'>Applicants Name: {name}</h1>

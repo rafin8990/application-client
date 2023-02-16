@@ -7,7 +7,7 @@ const Dashboard = () => {
     const [Applications, setApplications] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/application')
+        fetch('https://application-server-nine.vercel.app/application')
             .then(res => res.json())
             .then(data => setApplications(data))
     }, [])

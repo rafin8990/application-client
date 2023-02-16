@@ -7,6 +7,7 @@ const Navbar = () => {
             <ul className='flex justify-center'>
                 <li className=' text-emerald-900 mx-2 font-semibold'><Link to='/home'>Home</Link></li>
                 <li className=' text-emerald-900 mx-2 font-semibold'><Link to='/application'>My Application</Link></li>
+                <li className=' text-emerald-900 mx-2 font-semibold'><Link to='/allapplication'>Dashboard</Link></li>
             </ul>
         </div>
     );

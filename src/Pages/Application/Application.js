@@ -7,7 +7,7 @@ const Application = () => {
     const [applications, SetApplications]=useState([])
 
     useEffect(()=>{
-        fetch('https://application-server-nine.vercel.app/application')
+        fetch('http://localhost:5000/application')
         .then(res=>res.json())
         .then(data=>SetApplications(data))
     },[])

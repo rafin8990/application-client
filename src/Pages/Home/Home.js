@@ -32,7 +32,7 @@ const Home = () => {
                         name, mobile, application, imageUrl
                     }
                     console.log(form);
-                    fetch('https://application-server-nine.vercel.app/application', {
+                    fetch('http://localhost:5000/application', {
                         method: 'POST',
                         headers: {
                             "content-type": "application/json"
@@ -77,7 +77,7 @@ const Home = () => {
                             <p>
                                 <span className="">Mobile Number</span>
                             </p>
-                            <input {...register("mobile", { required: "Mobile Number is required" })} type='number' placeholder="Enter Mobile No" className="  p-3 border border-gray-500 rounded-lg w-full " />
+                            <input {...register("mobile", { required: "Mobile Number is required" })} type='text' placeholder="Enter Mobile No" className="  p-3 border border-gray-500 rounded-lg w-full " />
                             {errors.mobile && <p className="text-red-600">{errors.mobile?.message}</p>}
                         </div>
                         <div className="my-2 w-full">

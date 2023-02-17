@@ -14,7 +14,7 @@ const Dashboard = () => {
     const handleSearch = (event) => {
         event.preventDefault();
         const mobile = event.target.mobile.value;
-        const url = `http://localhost:5000/search?mobile=${mobile}`
+        const url = `https://application-server-nine.vercel.app/search?mobile=${mobile}`
         fetch(url)
             .then(res => res.json())
             .then(data => setSearchResults(data))

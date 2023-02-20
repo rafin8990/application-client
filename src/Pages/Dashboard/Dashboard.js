@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../Navbar/Navbar';
 
 
@@ -6,22 +7,24 @@ const Dashboard = () => {
 
     const [Applications, setApplications] = useState([]);
 
-    const [searchResults, setSearchResults] = useState([])
-    console.log(searchResults)
+    const [searchResults, setSearchResults] = useState([]);
 
+   
 
+    
 
     const handleSearch = (event) => {
         event.preventDefault();
         const mobile = event.target.mobile.value;
-        const url = `https://application-server-nine.vercel.app/search?mobile=${mobile}`
+        const url = `http://localhost:5000/search?mobile=${mobile}`
         fetch(url)
             .then(res => res.json())
             .then(data => setSearchResults(data))
+
     }
 
     useEffect(() => {
-        fetch('https://application-server-nine.vercel.app/application')
+        fetch('http://localhost:5000/application')
             .then(res => res.json())
             .then(data => setApplications(data))
     }, [])
@@ -44,8 +47,9 @@ const Dashboard = () => {
                             <th>Name</th>
                             <th>Mobile</th>
                             <th>Description</th>
+                            <th>Image URL (OUTWARDS)</th>
                             <th>Image URL</th>
-                            <th>Image URL</th>
+                            <th>Upload</th>
                         </tr>
                     </thead>
                     {
@@ -59,8 +63,18 @@ const Dashboard = () => {
                                         <td>{result.name}</td>
                                         <td>{result.mobile}</td>
                                         <td>{result.application}</td>
-                                        <td>{result.imageUrl}</td>
+                                        <td><a href={result.imageUrl}>View Outwards Image</a></td>
                                         <td>{result.picture}</td>
+                                        <td>
+                                            {
+                                                result.picture ?
+                                                    ''
+                                                    :
+                                                    <Link to={`/upload/${result._id}`}><button className='btn btn-success btn-sm'>Upload Image</button> </Link>
+                                            }
+
+                                        </td>
+
                                     </tr>)
                                 }
                             </tbody>
@@ -73,8 +87,16 @@ const Dashboard = () => {
                                         <td>{Application.name}</td>
                                         <td>{Application.mobile}</td>
                                         <td>{Application.application}</td>
-                                        <td>{Application.imageUrl}</td>
+                                        <td className='text-blue-500 hover:underline'><a href={Application.imageUrl}>View Outwards Image</a></td>
                                         <td>{Application.picture}</td>
+                                        <td>
+                                            {
+                                                Application.picture ?
+                                                    ''
+                                                    :
+                                                    <Link to={`/upload/${Application._id}`}><button className='btn btn-success btn-sm'>Upload Image</button> </Link>
+                                            }
+                                        </td>
                                     </tr>)
                                 }
                             </tbody>

@@ -67,7 +67,7 @@ const Dashboard = () => {
                                         <td>
                                             {
                                                 result.picture ?
-                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Outwards Image</a>
+                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Inwards Image</a>
                                                     :
                                                     ''
                                             }

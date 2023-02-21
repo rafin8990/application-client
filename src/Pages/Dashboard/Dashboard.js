@@ -57,7 +57,8 @@ const Dashboard = () => {
 
                             <tbody>
                                 {
-                                    searchResults.map((result, i) => <tr key={result._id}>
+
+                                    searchResults && searchResults.sort((a, b) => a.time > b.time ? -1 : 1).map((result, i) => <tr key={result._id}>
                                         <th>{i + 1}</th>
                                         <td>{result._id}</td>
                                         <td>{result.name}</td>
@@ -88,7 +89,7 @@ const Dashboard = () => {
                             :
                             <tbody>
                                 {
-                                    Applications.map((Application, i) => <tr key={Application._id}>
+                                    Applications && Applications.sort((a, b) => a.time > b.time ? -1 : 1).map((Application, i) => <tr key={Application._id}>
                                         <th>{i + 1}</th>
                                         <td>{Application._id}</td>
                                         <td>{Application.name}</td>

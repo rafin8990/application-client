@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const navigate = useNavigate()
+    
 
     const imageHostKey = process.env.REACT_APP_imageBB_key
     // const pictureHostKey=process.env.REACT_APP_picture_key
@@ -32,7 +33,9 @@ const Home = () => {
                     const mobile = data.mobile;
                     const application = data.application;
                     const imageUrl = imageData.data.url;
-                   const form = { name, mobile, application, imageUrl}
+                    const time = new Date();
+                    console.log(time)
+                   const form = { name, mobile, application, imageUrl,time}
                                 fetch('https://application-server-nine.vercel.app/application', {
                                     method: 'POST',
                                     headers: {

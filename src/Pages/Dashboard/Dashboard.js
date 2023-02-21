@@ -9,9 +9,9 @@ const Dashboard = () => {
 
     const [searchResults, setSearchResults] = useState([]);
 
-   
 
-    
+
+
 
     const handleSearch = (event) => {
         event.preventDefault();
@@ -48,7 +48,7 @@ const Dashboard = () => {
                             <th>Mobile</th>
                             <th>Description</th>
                             <th>Image URL (OUTWARDS)</th>
-                            <th>Image URL</th>
+                            <th>Image URL (INWARDS)</th>
                             <th>Upload</th>
                         </tr>
                     </thead>
@@ -63,14 +63,21 @@ const Dashboard = () => {
                                         <td>{result.name}</td>
                                         <td>{result.mobile}</td>
                                         <td>{result.application}</td>
-                                        <td><a href={result.imageUrl}>View Outwards Image</a></td>
-                                        <td>{result.picture}</td>
+                                        <td className='text-blue-500 hover:underline' ><a href={result.imageUrl}>View Outwards Image</a></td>
+                                        <td>
+                                            {
+                                                result.picture ?
+                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Outwards Image</a>
+                                                    :
+                                                    ''
+                                            }
+                                        </td>
                                         <td>
                                             {
                                                 result.picture ?
                                                     ''
                                                     :
-                                                    <Link to={`/upload/${result._id}`}><button className='btn btn-success btn-sm'>Upload Image</button> </Link>
+                                                    <Link to={`/upload/${result._id}`}><button className='btn btn-success btn-sm'>Upload Inwards Image</button> </Link>
                                             }
 
                                         </td>
@@ -88,13 +95,20 @@ const Dashboard = () => {
                                         <td>{Application.mobile}</td>
                                         <td>{Application.application}</td>
                                         <td className='text-blue-500 hover:underline'><a href={Application.imageUrl}>View Outwards Image</a></td>
-                                        <td>{Application.picture}</td>
+                                        <td>
+                                            {
+                                                Application.picture ?
+                                                    <a className='text-blue-500 hover:underline' href={Application.picture}>View Inwards Image</a>
+                                                    :
+                                                    ''
+                                            }
+                                        </td>
                                         <td>
                                             {
                                                 Application.picture ?
                                                     ''
                                                     :
-                                                    <Link to={`/upload/${Application._id}`}><button className='btn btn-success btn-sm'>Upload Image</button> </Link>
+                                                    <Link to={`/upload/${Application._id}`}><button className='btn btn-success btn-sm'>Upload Inwards Image</button> </Link>
                                             }
                                         </td>
                                     </tr>)

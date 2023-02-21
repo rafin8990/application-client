@@ -29,12 +29,10 @@ const Home = () => {
             .then(imageData => {
                 if (imageData.success) {
                     const name = data.name;
-                                const mobile = data.mobile;
-                                const application = data.application;
-                                const imageUrl = imageData.data.url;
-                                const form = {
-                                    name, mobile, application, imageUrl
-                                }
+                    const mobile = data.mobile;
+                    const application = data.application;
+                    const imageUrl = imageData.data.url;
+                   const form = { name, mobile, application, imageUrl}
                                 fetch('http://localhost:5000/application', {
                                     method: 'POST',
                                     headers: {

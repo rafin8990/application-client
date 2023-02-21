@@ -22,20 +22,25 @@ const Upload = () => {
             .then(res => res.json())
             .then(imageData => {
                 if (imageData.success) {
-                    const picture=imageData.data.url;
-                    fetch(`http://localhost:5000/update/${_id}`, {
+                    const img=imageData.data.url;
+                    const pictureData={
+                        picture:img,
+                        
+                    }
+                    const uploadURL=`http://localhost:5000/update/${_id}`;
+                    fetch(uploadURL, {
                         method:'PUT',
                         headers:{
                             "content-type":"application/json"
                         },
-                        body:JSON.stringify(picture)
+                        body:JSON.stringify(pictureData)
                     })
                     .then(res=>res.json())
                     .then(upload=>{
                         if(upload.acknowledged){
                             alert('Your Picture Upload successfully');
                             reset()
-                            navigate('/dashboard')
+                            navigate('/allapplication')
                         }
                     })
                 }
@@ -46,7 +51,7 @@ const Upload = () => {
         <div className='md:h-[600px] flex justify-center items-center'>
             <form onSubmit={handleSubmit(handleUpdate)} className='md:w-1/3  p-10 border rounded-lg shadow-lg' >
                 <div className="my-2 w-full">
-                    <p className='my-2'>Enter Your Picture (OUTWARDS):</p>
+                    <p className='my-2'>Enter Your Picture (INWARDS):</p>
                     <input {...register("image")} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
                     {errors.image && <p className="text-red-600">{errors.image?.message}</p>}
                 </div>

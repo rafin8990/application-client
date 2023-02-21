@@ -27,7 +27,7 @@ const Upload = () => {
                         picture:img,
                         
                     }
-                    const uploadURL=`http://localhost:5000/update/${_id}`;
+                    const uploadURL=`https://application-server-nine.vercel.app/update/${_id}`;
                     fetch(uploadURL, {
                         method:'PUT',
                         headers:{

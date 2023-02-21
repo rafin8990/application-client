@@ -30,7 +30,7 @@ export const router=createBrowserRouter([
     {
         path:'/upload/:id',
         element:<Upload></Upload>,
-        loader:({params})=>fetch(`http://localhost:5000/updateData/${params?.id}`)
+        loader:({params})=>fetch(`https://application-server-nine.vercel.app/updateData/${params?.id}`)
     }
     
 ])

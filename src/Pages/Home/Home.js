@@ -1,63 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Navbar from '../../Navbar/Navbar';
 import formpic from '../../assets/form.png'
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Home = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const navigate = useNavigate()
-    
+    const [multipleImages, setMultipleImages] = useState([]);
+    // console.log(multipleImages)
 
-    const imageHostKey = process.env.REACT_APP_imageBB_key
-    // const pictureHostKey=process.env.REACT_APP_picture_key
+
+    const changeMultipleFiles = (e) => {
+        if (e.target.files) {
+            const imageArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            setMultipleImages((prevImages) => prevImages.concat(imageArray));
+        }
+    };
+
+    const render = (data) => {
+        return data.map((image) => {
+            return <img className="image" src={image} alt="" key={image} />;
+        });
+    };
 
     const handleApplication = (data) => {
+
         const formData = new FormData();
-        const image = data.image[0];
-        formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
-        // const picUrl =`https://api.imgbb.com/1/upload?key=${imageHostKey}`
-        // const picUrl =`https://api.imgbb.com/1/upload?key=${pictureHostKey}`
-        // console.log(picUrl)
-        
-        fetch(url, {
-            method: 'POST',
+        const date =new Date()
+        for (let i = 0; i < data.files.length; i++) {
+            formData.append("files", data.files[i]);
+            formData.append("name", data.name);
+            formData.append("mobile", data.mobile)
+            formData.append("application", data.application)
+            formData.append("time", date)
+        }
+        fetch('http://localhost:5000/application', {
+            method: "POST",
             body: formData
         })
             .then(res => res.json())
             .then(imageData => {
-                if (imageData.success) {
-                    const name = data.name;
-                    const mobile = data.mobile;
-                    const application = data.application;
-                    const imageUrl = imageData.data.url;
-                    const time = new Date();
-                    console.log(time)
-                   const form = { name, mobile, application, imageUrl,time}
-                                fetch('https://application-server-nine.vercel.app/application', {
-                                    method: 'POST',
-                                    headers: {
-                                        "content-type": "application/json"
-                                    },
-                                    body: JSON.stringify(form)
-                                })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        if (data.acknowledged) {
-                                            alert('Application added successfully')
-                                            reset()
-                                            navigate('/welcome')
-                                        }
-
-                                    });
+                if (imageData.acknowledged) {
+                    console.log(imageData)
+                    alert('Your Application Successfully Submitted')
+                    reset();
+                    navigate('/welcome')
                 }
+
             })
 
-
-
     }
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -89,10 +88,12 @@ const Home = () => {
                             <textarea {...register("application", { required: "Application details is required" })} placeholder="Write Your Application" className='p-10 border border-gray-500 rounded-lg w-full'></textarea>
                             {errors.application && <p className="text-red-600">{errors.application?.message}</p>}
                         </div>
+                        {render(multipleImages)}
                         <div className="my-2 w-full">
                             <p className='my-2'>Enter Your Picture (OUTWARDS):</p>
-                            <input {...register("image", { required: "Image Upload is required" })} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' placeholder='' type="file" />
-                            {errors.image && <p className="text-red-600">{errors.image?.message}</p>}
+                            <input type="file" {...register("files", { required: "Image Upload is required" })} onChange={changeMultipleFiles} accept="image/*" className='p-5 border border-gray-500 rounded-lg w-full' multiple />
+                            {errors.files && <p className="text-red-600">{errors.files?.message}</p>}
+
                         </div>
                         <div>
                             <button className='border border-violet-500 text-white bg-violet-500 px-4 py-2 rounded-lg w-full my-5' type="submit"> Submit Application</button>
@@ -101,6 +102,7 @@ const Home = () => {
                     </form>
                 </div>
             </div>
+
 
         </div>
     );

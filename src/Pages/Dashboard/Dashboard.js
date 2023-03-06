@@ -16,7 +16,7 @@ const Dashboard = () => {
     const handleSearch = (event) => {
         event.preventDefault();
         const mobile = event.target.mobile.value;
-        const url = `https://application-server-nine.vercel.app/search?mobile=${mobile}`
+        const url = `http://localhost:5000/search?mobile=${mobile}`
         fetch(url)
             .then(res => res.json())
             .then(data => setSearchResults(data))
@@ -24,9 +24,11 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        fetch('https://application-server-nine.vercel.app/application')
+        fetch('http://localhost:5000/application')
             .then(res => res.json())
-            .then(data => setApplications(data))
+            .then(data => {
+                setApplications(data)
+            })
     }, [])
     return (
         <div>
@@ -61,10 +63,15 @@ const Dashboard = () => {
                                     searchResults && searchResults.sort((a, b) => a.time > b.time ? -1 : 1).map((result, i) => <tr key={result._id}>
                                         <th>{i + 1}</th>
                                         <td>{result._id}</td>
-                                        <td>{result.name}</td>
-                                        <td>{result.mobile}</td>
-                                        <td>{result.application}</td>
-                                        <td className='text-blue-500 hover:underline' ><a href={result.imageUrl}>View Outwards Image</a></td>
+                                        <td>{result.name[0]}</td>
+                                        <td>{result.mobile[0]}</td>
+                                        <td>{result.application[0]}</td>
+                                        <td>
+                                            {
+                                                result.files.map((file, i) => <li  className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
+
+                                            }
+                                        </td>
                                         <td>
                                             {
                                                 result.picture ?
@@ -92,10 +99,15 @@ const Dashboard = () => {
                                     Applications && Applications.sort((a, b) => a.time > b.time ? -1 : 1).map((Application, i) => <tr key={Application._id}>
                                         <th>{i + 1}</th>
                                         <td>{Application._id}</td>
-                                        <td>{Application.name}</td>
-                                        <td>{Application.mobile}</td>
-                                        <td>{Application.application}</td>
-                                        <td className='text-blue-500 hover:underline'><a href={Application.imageUrl}>View Outwards Image</a></td>
+                                        <td>{Application.name[0]}</td>
+                                        <td>{Application.mobile[0]}</td>
+                                        <td>{Application.application[0]}</td>
+                                        <td>
+                                            {
+                                                Application.files.map((file, i) => <li className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
+
+                                            }
+                                        </td>
                                         <td>
                                             {
                                                 Application.picture ?

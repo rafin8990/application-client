@@ -68,17 +68,24 @@ const Dashboard = () => {
                                         <td>{result.application[0]}</td>
                                         <td>
                                             {
-                                                result.files.map((file, i) => <li  className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
+                                                result.files.map((file, i) => <li className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
 
                                             }
                                         </td>
                                         <td>
                                             {
                                                 result.picture ?
-                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Inwards Image</a>
+                                                    result.picture.map(file => <li className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
                                                     :
                                                     ''
                                             }
+
+                                            {/*  {
+                                                
+
+                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Inwards Image</a>
+                                                    
+                                            } */}
                                         </td>
                                         <td>
                                             {
@@ -111,7 +118,7 @@ const Dashboard = () => {
                                         <td>
                                             {
                                                 Application.picture ?
-                                                    <a className='text-blue-500 hover:underline' href={Application.picture}>View Inwards Image</a>
+                                                    Application.picture.map(file => <li className='text-blue-500 hover:underline'><a href={`http://localhost:5000/${file.filename}`}> View Outwords Image</a></li>)
                                                     :
                                                     ''
                                             }

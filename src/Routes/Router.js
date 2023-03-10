@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import UpdateInword from "../Pages/UpdateInword/UpdateInword";
 import Upload from "../Pages/Upload/Upload";
 import Welcome from "../Pages/Welcome/Welcome";
 
@@ -27,6 +28,11 @@ export const router=createBrowserRouter([
         element:<Upload></Upload>,
         loader:({params})=>fetch(`http://localhost:5000/updateData/${params?.id}`)
     },
+    {
+        path:'/inword/:id',
+        element:<UpdateInword></UpdateInword>,
+        loader:({params})=>fetch(`http://localhost:5000/inword/${params?.id}`)
+    }
     
     
     

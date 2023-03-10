@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import {  useLoaderData, useNavigate } from 'react-router-dom';
 
 const Upload = () => {
     const updatedData = useLoaderData();
     const { _id } = updatedData;
-
-    const [inwords, setInwords] = useState([])
-    const { files } = inwords;
-
-    useEffect(() => {
-        fetch(`http://localhost:5000/inword/${_id}`)
-            .then(res => res.json())
-            .then(inwordData => setInwords(inwordData))
-    }, [_id])
+    const navigate=useNavigate()
+   
 
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const navigate = useNavigate()
     const [multipleImages, setMultipleImages] = useState([]);
 
     const changeMultipleFiles = (e) => {
@@ -44,31 +36,13 @@ const Upload = () => {
         fetch(`http://localhost:5000/inword`, {
             method: "POST",
             body: formData
-
         })
             .then(res => res.json())
             .then(updateData => {
-                if (updateData.acknowledged) {
-                    fetch(`http://localhost:5000/update/${_id}`, {
-                        method: "PUT",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(files)
-                    })
-                        .then(res => res.json())
-                        .then(inwordData => {
-                            console.log(inwordData)
-                            alert('inword picture successfully uploaded')
-                            navigate('/allapplication')
-                        })
-
-
-                }
-
+                alert('Your Inword Image was Submitted')
+                navigate(`/inword/${_id}`)
+                console.log(updateData)
             })
-
-
     }
 
     return (

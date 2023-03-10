@@ -79,13 +79,6 @@ const Dashboard = () => {
                                                     :
                                                     ''
                                             }
-
-                                            {/*  {
-                                                
-
-                                                    <a className='text-blue-500 hover:underline' href={result.picture}>View Inwards Image</a>
-                                                    
-                                            } */}
                                         </td>
                                         <td>
                                             {
